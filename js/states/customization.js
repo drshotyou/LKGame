@@ -24,13 +24,9 @@ KLS.customization = {
         this.background.height = this.game.height;
 
         this.selectButton = this.game.add.button(315,315,"select",function(){
-          if(this.playerName=="Jorge"){
-            
-          }else if(this.playerName=="Alden"){
 
-          }else {
+            this.game.state.start('onePlayer', true, false, "level1",this.playerName.text);
 
-          }
         },this,1,4,2,1);
         this.selectButton.anchor.setTo(0.5);
         this.selectButton.scale.setTo(0.3,0.3);

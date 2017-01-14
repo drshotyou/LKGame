@@ -2,9 +2,10 @@ var KLS = KLS || {};
 
 KLS.onePlayer = {
 
-  init: function(level) {
+  init: function(level,playerName) {
 
     this.currentLevel = level || 'level1';
+    this.playerName = playerName;
 
     //constants
     this.RUNNING_SPEED = 180;
@@ -21,10 +22,13 @@ KLS.onePlayer = {
     this.load.image('platform', 'assets/images/platform.png');
     this.load.image('goal', 'assets/images/goal.png');
     this.load.image('slime', 'assets/images/slime.png');
-    this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 28, 30, 5, 1, 1);
     this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
+
+    this.load.spritesheet("Jorge","assets/images/jorge.png",80,110,24);
+    this.load.spritesheet("Alden","assets/images/alden.png",80,110,24);
+    this.load.spritesheet("Sergio","assets/images/sergio.png",80,110,24);
 
     this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
     this.load.tilemap('level1', 'assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -54,17 +58,17 @@ KLS.onePlayer = {
 
     if(this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
-      this.player.scale.setTo(1, 1);
+      this.player.scale.setTo(-0.4, 0.4);
       this.player.play('walking');
     }
     else if(this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED;
-      this.player.scale.setTo(-1, 1);
+      this.player.scale.setTo(0.4, 0.4);
       this.player.play('walking');
     }
     else {
       this.player.animations.stop();
-      this.player.frame = 3;
+      this.player.frame = 0;
     }
 
     if((this.cursors.up.isDown || this.player.customParams.mustJump) && (this.player.body.blocked.down || this.player.body.touching.down)) {
@@ -106,9 +110,10 @@ KLS.onePlayer = {
 
     //create player
     var playerArr = this.findObjectsByType('player', this.map, 'objectsLayer');
-    this.player = this.add.sprite(playerArr[0].x, playerArr[0].y, 'player', 3);
+    this.player = this.add.sprite(playerArr[0].x, playerArr[0].y, this.playerName,10);
     this.player.anchor.setTo(0.5);
-    this.player.animations.add('walking', [0, 1, 2, 1], 6, true);
+    this.player.scale.setTo(0.4);
+    this.player.animations.add('walking', [10, 0, 10, 9], 6, true);
     this.game.physics.arcade.enable(this.player);
     this.player.customParams = {};
     this.player.body.collideWorldBounds = true;
@@ -189,7 +194,7 @@ KLS.onePlayer = {
     return result;
   },
   changeLevel: function(player, goal){
-    this.game.state.start('onePlayer', true, false, goal.nextLevel);
+    this.game.state.start('onePlayer', true, false, goal.nextLevel,this.playerName);
   },
   createEnemies: function(){
     var enemyArr = this.findObjectsByType('enemy', this.map, 'objectsLayer');
@@ -210,7 +215,7 @@ KLS.onePlayer = {
     }
   },
   gameOver: function(){
-    this.game.state.start('onePlayer', true, false, this.currentLevel);
+    this.game.state.start('onePlayer', true, false, this.currentLevel,this.playerName);
   }
 
 };
