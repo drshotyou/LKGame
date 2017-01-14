@@ -18,7 +18,7 @@ KLS.StartMenu = {
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
-        this.onePlayerButton = this.game.add.button(280,330,"onePlayer",null,null,1,4,2,1);
+        this.onePlayerButton = this.game.add.button(280,330,"onePlayer",function(){this.state.start("onePlayer")},this,1,4,2,1);
         this.onePlayerButton.anchor.setTo(0.5);
         this.onePlayerButton.scale.setTo(1,1);
 
