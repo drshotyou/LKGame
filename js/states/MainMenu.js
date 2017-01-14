@@ -18,7 +18,7 @@ KLS.MainMenu = {
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
-        this.startButton = this.game.add.button(140,200,"button",null,null,1,4,2,1);
+        this.startButton = this.game.add.button(140,200,"button",function(){this.state.start("StartMenu");},this,1,4,2,1);
         this.startButton.anchor.setTo(0.5);
         this.title = this.game.add.text(65,50,"Los Kalientes", {fontSize:"50px"});
         this.startButton.scale.setTo(0.5,0.5);
