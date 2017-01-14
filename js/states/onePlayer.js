@@ -1,46 +1,44 @@
 var KLS = KLS || {};
 
 KLS.onePlayer = {
-    init: function(level){
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.game.scale.setScreenSize( true );
 
-        this.currentLevel = level || 'level1';
+  init: function(level) {
 
-        //constants
-        this.RUNNING_SPEED = 180;
-        this.JUMPING_SPEED = 500;
-        this.BOUNCING_SPEED = 150;
+    this.currentLevel = level || 'level1';
 
-        //gravity
-        this.game.physics.arcade.gravity.y = 1000;
+    //constants
+    this.RUNNING_SPEED = 180;
+    this.JUMPING_SPEED = 500;
+    this.BOUNCING_SPEED = 150;
 
-        //cursor keys to move the player
-        this.cursors = this.game.input.keyboard.createCursorKeys();
-    },
-    preload: function(){
-      this.load.image('platform', 'assets/images/platform.png');
-      this.load.image('goal', 'assets/images/goal.png');
-      this.load.image('slime', 'assets/images/slime.png');
-      this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 28, 30, 5, 1, 1);
-      this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
-      this.load.image('arrowButton', 'assets/images/arrowButton.png');
-      this.load.image('actionButton', 'assets/images/actionButton.png');
+    //gravity
+    this.game.physics.arcade.gravity.y = 1000;
 
-      this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
-      this.load.tilemap('level1', 'assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
-      this.load.tilemap('level2', 'assets/levels/level2.json', null, Phaser.Tilemap.TILED_JSON);
+    //cursor keys to move the player
+    this.cursors = this.game.input.keyboard.createCursorKeys();
+  },
+  preload: function(){
+    this.load.image('platform', 'assets/images/platform.png');
+    this.load.image('goal', 'assets/images/goal.png');
+    this.load.image('slime', 'assets/images/slime.png');
+    this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 28, 30, 5, 1, 1);
+    this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
+    this.load.image('arrowButton', 'assets/images/arrowButton.png');
+    this.load.image('actionButton', 'assets/images/actionButton.png');
 
-    },
-    create: function(){
-      //load current level
-      this.loadLevel();
+    this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
+    this.load.tilemap('level1', 'assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('level2', 'assets/levels/level2.json', null, Phaser.Tilemap.TILED_JSON);
 
-      //show on-screen touch controls
-      this.createOnscreenControls();
+  },
+  create: function() {
+    //load current level
+    this.loadLevel();
 
-    },
-    update: function() {
+    //show on-screen touch controls
+    this.createOnscreenControls();
+  },
+  update: function() {
     //collision between the player, enemies and the collision layer
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
@@ -191,14 +189,14 @@ KLS.onePlayer = {
     return result;
   },
   changeLevel: function(player, goal){
-    this.game.state.start('Game', true, false, goal.nextLevel);
+    this.game.state.start('onePlayer', true, false, goal.nextLevel);
   },
   createEnemies: function(){
     var enemyArr = this.findObjectsByType('enemy', this.map, 'objectsLayer');
     var enemy;
 
     enemyArr.forEach(function(element){
-      enemy = new ZPlat.Enemy(this.game, element.x, element.y, 'slime', +element.properties.velocity, this.map);
+      enemy = new KLS.Enemy(this.game, element.x, element.y, 'slime', +element.properties.velocity, this.map);
       this.enemies.add(enemy);
     }, this);
   },
@@ -212,8 +210,7 @@ KLS.onePlayer = {
     }
   },
   gameOver: function(){
-    this.game.state.start('Game', true, false, this.currentLevel);
+    this.game.state.start('onePlayer', true, false, this.currentLevel);
   }
-
 
 };
