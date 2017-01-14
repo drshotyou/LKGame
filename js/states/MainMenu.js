@@ -18,15 +18,15 @@ KLS.MainMenu = {
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
-        this.startButton = this.game.add.button(140,200,"button",function(){this.state.start("StartMenu");},this,1,4,2,1);
+        this.startButton = this.game.add.button(280,400,"button",function(){this.state.start("StartMenu");},this,1,4,2,1);
         this.startButton.anchor.setTo(0.5);
-        this.title = this.game.add.text(65,50,"Los Kalientes", {fontSize:"50px"});
-        this.startButton.scale.setTo(0.5,0.5);
-        this.startText = this.game.add.text(this.startButton.x-65,this.startButton.y-25,"START",{fontSize:"40px"});
+        this.title = this.game.add.text(130,100,"Los Kalientes", {fontSize:"100px"});
+        this.startButton.scale.setTo(1,1);
+        this.startText = this.game.add.text(this.startButton.x-130,this.startButton.y-50,"START",{fontSize:"80px"});
 
-        this.highscoreButton = this.game.add.button(340,200,"score",null,null,1,4,2,1);
+        this.highscoreButton = this.game.add.button(680,400,"score",null,null,1,4,2,1);
         this.highscoreButton.anchor.setTo(0.5);
-        this.highscoreButton.scale.setTo(0.5,0.5);
+        this.highscoreButton.scale.setTo(1,1);
 
     }
 
