@@ -18,13 +18,13 @@ KLS.StartMenu = {
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
-        this.onePlayerButton = this.game.add.button(280,330,"onePlayer",function(){this.state.start("onePlayer")},this,1,4,2,1);
+        this.onePlayerButton = this.game.add.button(210,165,"onePlayer",function(){this.state.start("onePlayer")},this,1,4,2,1);
         this.onePlayerButton.anchor.setTo(0.5);
-        this.onePlayerButton.scale.setTo(1,1);
+        this.onePlayerButton.scale.setTo(0.5,0.5);
 
-        this.twoPlayerButton = this.game.add.button(680,330,"twoPlayer",null,null,1,4,2,1);
+        this.twoPlayerButton = this.game.add.button(410,165,"twoPlayer",null,null,1,4,2,1);
         this.twoPlayerButton.anchor.setTo(0.5);
-        this.twoPlayerButton.scale.setTo(1,1);
+        this.twoPlayerButton.scale.setTo(0.5,0.5);
 
     }
 
