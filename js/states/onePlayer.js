@@ -11,6 +11,7 @@ KLS.onePlayer = {
     this.RUNNING_SPEED = 180;
     this.JUMPING_SPEED = 500;
     this.BOUNCING_SPEED = 150;
+    this.Score = 0;
 
     //gravity
     this.game.physics.arcade.gravity.y = 1000;
@@ -24,6 +25,7 @@ KLS.onePlayer = {
     this.load.image('platform', 'assets/images/platform.png');
     this.load.image('goal', 'assets/images/goal.png');
     this.load.image('slime', 'assets/images/slime.png');
+    this.load.image('coin', 'assets/images/coin.png');
     this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
@@ -44,13 +46,27 @@ KLS.onePlayer = {
   },
   create: function() {
 
-    this.pauseText = this.game.add.text(50,20,"Pause");
+    this.scoreText = this.game.add.text(30,10,"Score:")
+    this.scoreText.fixedToCamera = true;
+    this.scoreNum = this.game.add.text(120,10,"0")
+    this.scoreNum.fixedToCamera = true;
+
+    this.timeText = this.game.add.text(30,40,"Time:");
+    this.timeText.fixedToCamera = true;
+    this.timeLeft = this.game.add.text(120,40,"100");
+    this.timeLeft.fixedToCamera = true;
+    this.timer = this.game.time.create(false);
+    this.timer.add(100000,this.timer,this);
+    this.timer.start();
+
+
+    this.pauseText = this.game.add.text(600,20,"Pause");
     this.pauseText.inputEnabled = true;
     this.pauseText.fixedToCamera= true;
     this.pauseText.alpha = 0.5
     this.pauseText.events.onInputUp.add(function(){
       this.game.paused= true;
-      this.pause=this.game.add.sprite(310,220,"pause");
+      this.pause=this.game.add.sprite(this.scoreText.x+280,this.scoreText.y+120,"pause");
       this.pause.scale.setTo(0.4);
       this.pause.anchor.setTo(0.4);
       this.pause.fixedToCamera = true;
@@ -70,6 +86,9 @@ KLS.onePlayer = {
     //show on-screen touch controls
     this.createOnscreenControls();
   },
+  timer: function(){
+   this.gameOver();
+  },
   unpause: function(){
     if(this.game.paused){
       this.game.paused=false;
@@ -81,12 +100,18 @@ KLS.onePlayer = {
 
   update: function() {
 
+    this.scoreNum.text = this.Score.toString();
+    this.timeLeft.text = this.timer.duration.toFixed(0);
+
     //collision between the player, enemies and the collision layer
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
+    this.game.physics.arcade.collide(this.coins, this.collisionLayer);
 
     //collision between player and enemies
     this.game.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+
+    this.game.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
 
     //overlap between player and goal
     this.game.physics.arcade.overlap(this.player, this.goal, this.changeLevel, null, this);
@@ -134,6 +159,7 @@ KLS.onePlayer = {
     this.backgroundLayer = this.map.createLayer('backgroundLayer');
     this.collisionLayer = this.map.createLayer('collisionLayer');
 
+    this.game.world.sendToBack(this.collisionLayer);
     //send background to the back
     this.game.world.sendToBack(this.backgroundLayer);
 
@@ -166,7 +192,12 @@ KLS.onePlayer = {
 
     //create enemies
     this.enemies = this.add.group();
+    this.coins = this.add.group();
     this.createEnemies();
+    this.createCoins();
+    this.coins.forEach(function(coin){
+      coin.body.allowGravity = false;
+    },this)
 
   },
   createOnscreenControls: function(){
@@ -248,14 +279,29 @@ KLS.onePlayer = {
       this.enemies.add(enemy);
     }, this);
   },
+  createCoins: function(){
+
+  var coinArr = this.findObjectsByType('coin',this.map,'objectsLayer');
+    var coin;
+
+    coinArr.forEach(function(element){
+      coin= new KLS.Enemy(this.game,element.x,element.y,'coin',+element.properties.velocity,this.map);
+      this.coins.add(coin);
+    },this);
+  },
   hitEnemy: function(player, enemy){
     if(enemy.body.touching.up){
+      this.Score+=10;
       enemy.kill();
       player.body.velocity.y = -this.BOUNCING_SPEED;
     }
     else {
       this.gameOver();
     }
+  },
+  collectCoin: function(player, coin){
+    this.Score +=5;
+    coin.kill();
   },
   gameOver: function(){
     this.game.state.start('onePlayer', true, false, this.currentLevel,this.playerName);

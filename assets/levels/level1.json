@@ -54,8 +54,8 @@
                  "name":"",
                  "properties":
                     {
-                     "type":"enemy",
-                     "velocity":"80"
+                     "type":"coin",
+                     "velocity":"0"
                     },
                  "propertytypes":
                     {
@@ -576,6 +576,72 @@
                  "width":44.0909090909063,
                  "x":9107.24242424242,
                  "y":271.545454545455
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":66,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coin",
+                     "velocity":"0"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string",
+                     "velocity":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":512.80303030303,
+                 "y":264.318181818182
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":67,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coin",
+                     "velocity":"0"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string",
+                     "velocity":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":412.80303030303,
+                 "y":276.439393939394
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":68,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coin",
+                     "velocity":"0"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string",
+                     "velocity":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":564.318181818182,
+                 "y":243.106060606061
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -584,7 +650,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":66,
+ "nextobjectid":69,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":35,

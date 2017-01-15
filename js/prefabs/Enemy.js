@@ -8,7 +8,7 @@ KLS.Enemy = function(game, x, y, key, velocity, tilemap) {
   this.anchor.setTo(0.5);
 
   //give it a random speed if none given
-  if(!velocity) {
+  if(velocity==-5) {
     velocity = (40 + Math.random() * 20) * (Math.random() < 0.5 ? 1 : -1);
   }
 
