@@ -17,6 +17,8 @@ KLS.onePlayer = {
 
     //cursor keys to move the player
     this.cursors = this.game.input.keyboard.createCursorKeys();
+
+    this.esc = this.game.input.keyboard.ESC;
   },
   preload: function(){
     this.load.image('platform', 'assets/images/platform.png');
@@ -25,17 +27,23 @@ KLS.onePlayer = {
     this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
+    this.load.image("pause","assets/images/pause.png");
+
 
     this.load.spritesheet("Jorge","assets/images/jorge.png",80,110,24);
     this.load.spritesheet("Alden","assets/images/alden.png",80,110,24);
     this.load.spritesheet("Sergio","assets/images/sergio.png",80,110,24);
 
+    this.load.image('background', 'assets/images/background.png');
+    this.load.image('underground', 'assets/images/underground.png');
     this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
     this.load.tilemap('level1', 'assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('level2', 'assets/levels/level2.json', null, Phaser.Tilemap.TILED_JSON);
 
   },
   create: function() {
+
+
     //load current level
     this.loadLevel();
 
@@ -43,6 +51,7 @@ KLS.onePlayer = {
     this.createOnscreenControls();
   },
   update: function() {
+
     //collision between the player, enemies and the collision layer
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
@@ -74,7 +83,9 @@ KLS.onePlayer = {
     if((this.cursors.up.isDown || this.player.customParams.mustJump) && (this.player.body.blocked.down || this.player.body.touching.down)) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
       this.player.customParams.mustJump = false;
+      this.player.frame = 1;
     }
+
 
     //kill enemy if it falls off
     if(this.player.bottom == this.game.world.height){
@@ -87,6 +98,8 @@ KLS.onePlayer = {
 
     //join the tile images to the json data
     this.map.addTilesetImage('tiles_spritesheet', 'gameTiles');
+    this.map.addTilesetImage('background', 'background');
+    this.map.addTilesetImage('underground', 'underground');
 
     //create tile layers
     this.backgroundLayer = this.map.createLayer('backgroundLayer');
@@ -117,6 +130,7 @@ KLS.onePlayer = {
     this.game.physics.arcade.enable(this.player);
     this.player.customParams = {};
     this.player.body.collideWorldBounds = true;
+    this.player.body.height = this.player.height;
 
     //follow player with the camera
     this.game.camera.follow(this.player);
@@ -216,6 +230,9 @@ KLS.onePlayer = {
   },
   gameOver: function(){
     this.game.state.start('onePlayer', true, false, this.currentLevel,this.playerName);
-  }
+  }//,
+//  render: function(){
+  //  this.game.debug.body(this.player);
+//  }
 
 };
