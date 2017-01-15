@@ -28,6 +28,7 @@ KLS.onePlayer = {
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
     this.load.image("pause","assets/images/pause.png");
+    this.load.spritesheet("button","assets/images/button.png",361,176,4,0,23);
 
 
     this.load.spritesheet("Jorge","assets/images/jorge.png",80,110,24);
@@ -43,6 +44,25 @@ KLS.onePlayer = {
   },
   create: function() {
 
+    this.pauseText = this.game.add.text(50,20,"Pause");
+    this.pauseText.inputEnabled = true;
+    this.pauseText.fixedToCamera= true;
+    this.pauseText.alpha = 0.5
+    this.pauseText.events.onInputUp.add(function(){
+      this.game.paused= true;
+      this.pause=this.game.add.sprite(310,220,"pause");
+      this.pause.scale.setTo(0.4);
+      this.pause.anchor.setTo(0.4);
+      this.pause.fixedToCamera = true;
+      this.pauseText = this.game.add.text(this.pause.x+15,this.pause.y-34,"Paused",{fontSize:"25px"});
+      this.pauseText.anchor.setTo(0.4);
+      this.descriptionText = this.game.add.text(this.pause.x+7,this.pause.y+47,"Click anywhere to continue",{fontSize:"20px"});
+      this.descriptionText.anchor.setTo(0.4);
+
+
+    },this);
+
+    this.game.input.onDown.add(this.unpause,this);
 
     //load current level
     this.loadLevel();
@@ -50,6 +70,15 @@ KLS.onePlayer = {
     //show on-screen touch controls
     this.createOnscreenControls();
   },
+  unpause: function(){
+    if(this.game.paused){
+      this.game.paused=false;
+      this.pause.destroy();
+      this.pauseText.destroy();
+      this.descriptionText.destroy();
+    }
+  },
+
   update: function() {
 
     //collision between the player, enemies and the collision layer
