@@ -1,15 +1,19 @@
 var KLS = KLS || {};
 
-KLS.MainMenu = {
+KLS.highscore = {
     init: function(){
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.game.scale.setScreenSize( true );
+        this.highscore = localStorage.getItem("Highscore");
+        if(this.highscore===null){
+          localStorage.setItem("Highscore","300")
+        }
 
     },
     preload: function(){
         this.load.image("background","assets/images/background.png");
         this.load.spritesheet("button","assets/images/button.png",361,176,4,0,23);
-        this.load.spritesheet("score","assets/images/score.png",176,176,4,0,16);
+
 
 
     },
@@ -18,15 +22,16 @@ KLS.MainMenu = {
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
-        this.startButton = this.game.add.button(210,200,"button",function(){this.state.start("customization");},this,1,4,2,1);
-        this.startButton.anchor.setTo(0.5);
-        this.title = this.game.add.text(135,50,"Los Kalientes", {fontSize:"50px"});
-        this.startButton.scale.setTo(0.5,0.5);
-        this.startText = this.game.add.text(this.startButton.x-65,this.startButton.y-25,"START",{fontSize:"40px"});
+        this.highscore = localStorage.getItem("Highscore");
 
-        this.highscoreButton = this.game.add.button(415,200,"score",function(){this.state.start("highscore");},this,1,4,2,1);
-        this.highscoreButton.anchor.setTo(0.5);
-        this.highscoreButton.scale.setTo(0.5,0.5);
+        this.title = this.game.add.text(135,25,"Highscore is:", {fontSize:"50px"});
+        this.title = this.game.add.text(135,90,this.highscore, {fontSize:"50px"});
+
+        this.startButton = this.game.add.button(210,200,"button",function(){this.state.start("MainMenu");},this,1,4,2,1);
+        this.startButton.anchor.setTo(0.5);
+        this.startButton.scale.setTo(0.5,0.5);
+        this.startText = this.game.add.text(this.startButton.x-65,this.startButton.y-25,"BACK",{fontSize:"40px"});
+
 
     }
 

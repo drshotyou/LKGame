@@ -23,149 +23,213 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
          "height":12,
          "name":"objectsLayer",
          "objects":[
                 {
                  "gid":147,
-                 "height":0,
+                 "height":35,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
                      "type":"player"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":1143,
                  "y":94
                 }, 
                 {
                  "gid":148,
-                 "height":0,
+                 "height":35,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
                      "key":"goal",
-                     "nextLevel":"level1",
+                     "nextLevel":"finish",
                      "type":"goal"
                     },
+                 "propertytypes":
+                    {
+                     "key":"string",
+                     "nextLevel":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":1282,
                  "y":283
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":293,
                  "y":171
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":221,
                  "y":339
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":5,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":590,
                  "y":205
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":6,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":716,
                  "y":100
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":988,
                  "y":66
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":799,
                  "y":274
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":968,
                  "y":170
                 }, 
                 {
                  "gid":146,
-                 "height":0,
+                 "height":35,
+                 "id":10,
                  "name":"",
                  "properties":
                     {
                      "type":"enemy",
                      "velocity":"80"
                     },
+                 "propertytypes":
+                    {
+                     "type":"string",
+                     "velocity":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":35,
                  "x":1042,
                  "y":311
                 }],
@@ -175,26 +239,33 @@
          "width":40,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":12,
+         "name":"hidden",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
         }],
+ "nextobjectid":11,
  "orientation":"orthogonal",
- "properties":
-    {
-
-    },
+ "renderorder":"right-down",
  "tileheight":35,
  "tilesets":[
         {
+         "columns":12,
          "firstgid":1,
-         "image":"..\/images\/tiles_spritesheet.png",
+         "image":"..\/..\/..\/..\/..\/..\/Downloads\/M7-Tile-based-Platformer-2016-03-23\/13-player-falling\/assets\/images\/tiles_spritesheet.png",
          "imageheight":468,
          "imagewidth":457,
          "margin":0,
          "name":"tiles_spritesheet",
-         "properties":
-            {
-
-            },
          "spacing":1,
+         "tilecount":156,
          "tileheight":35,
          "tilewidth":35
         }],

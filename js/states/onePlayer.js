@@ -2,16 +2,17 @@ var KLS = KLS || {};
 
 KLS.onePlayer = {
 
-  init: function(level,playerName) {
+  init: function(level,playerName,score) {
 
     this.currentLevel = level || 'level1';
     this.playerName = playerName;
+    this.finished = false;
 
     //constants
     this.RUNNING_SPEED = 180;
     this.JUMPING_SPEED = 500;
     this.BOUNCING_SPEED = 150;
-    this.Score = 0;
+    this.Score = score || 0;
 
     //gravity
     this.game.physics.arcade.gravity.y = 1000;
@@ -56,7 +57,7 @@ KLS.onePlayer = {
     this.timeLeft = this.game.add.text(120,40,"100");
     this.timeLeft.fixedToCamera = true;
     this.timer = this.game.time.create(false);
-    this.timer.add(100000,this.timer,this);
+    this.timer.add(200000,this.timer,this);
     this.timer.start();
 
 
@@ -90,11 +91,14 @@ KLS.onePlayer = {
    this.gameOver();
   },
   unpause: function(){
-    if(this.game.paused){
+    if(this.game.paused && !this.finished){
       this.game.paused=false;
       this.pause.destroy();
       this.pauseText.destroy();
       this.descriptionText.destroy();
+    }else if(this.game.paused && this.finished){
+      this.game.state.start("MainMenu");
+      this.game.paused=false;
     }
   },
 
@@ -158,10 +162,11 @@ KLS.onePlayer = {
     //create tile layers
     this.backgroundLayer = this.map.createLayer('backgroundLayer');
     this.collisionLayer = this.map.createLayer('collisionLayer');
+    this.hidden = this.map.createLayer("hidden");
 
+    this.game.world.sendToBack(this.hidden);
     this.game.world.sendToBack(this.collisionLayer);
-    //send background to the back
-    this.game.world.sendToBack(this.backgroundLayer);
+
 
     //collision layer should be collisionLayer
     this.map.setCollisionBetween(1, 160, true, 'collisionLayer');
@@ -186,6 +191,9 @@ KLS.onePlayer = {
     this.player.customParams = {};
     this.player.body.collideWorldBounds = true;
     this.player.body.height = this.player.height;
+
+    this.game.world.sendToBack(this.player);
+    this.game.world.sendToBack(this.backgroundLayer);
 
     //follow player with the camera
     this.game.camera.follow(this.player);
@@ -268,7 +276,32 @@ KLS.onePlayer = {
     return result;
   },
   changeLevel: function(player, goal){
-    this.game.state.start('onePlayer', true, false, goal.nextLevel,this.playerName);
+
+    this.Score+=Math.floor(this.timer.duration/1000);
+    if(goal.nextLevel=="finish"){
+      this.winText = this.game.add.text(this.scoreText.x+280,this.scoreText.y+120,"YOU COMPLETED THE COURSE!");
+      this.winText.anchor.setTo(0.4);
+      this.winInfo = this.game.add.text(this.scoreText.x+280,this.scoreText.y+150,"YOUR SCORE IS "+this.Score.toString());
+      this.winInfo.anchor.setTo(0.4);
+      this.highscore = parseInt(localStorage.getItem('Highscore'));
+      if(this.highscore<this.Score)
+      {
+        this.highText = this.game.add.text(this.scoreText.x+280,this.scoreText.y+180,"YOU BEAT THE HIGHSCORE!!!");
+        this.highText.anchor.setTo(0.4);
+        localStorage.setItem("Highscore",this.Score.toString());
+      }else {
+        this.highText = this.game.add.text(this.scoreText.x+280,this.scoreText.y+180,"THE HIGHSCORE IS:"+ this.highscore.toString());
+        this.highText.anchor.setTo(0.4);
+      }
+      this.finished = true;
+
+      this.game.paused = true;
+
+      this.game.input.onDown.add(this.unpause,this);
+
+    }else{
+      this.game.state.start('onePlayer', true, false, goal.nextLevel,this.playerName,this.Score);
+  }
   },
   createEnemies: function(){
     var enemyArr = this.findObjectsByType('enemy', this.map, 'objectsLayer');
@@ -304,7 +337,9 @@ KLS.onePlayer = {
     coin.kill();
   },
   gameOver: function(){
+
     this.game.state.start('onePlayer', true, false, this.currentLevel,this.playerName);
+
   }//,
 //  render: function(){
   //  this.game.debug.body(this.player);
