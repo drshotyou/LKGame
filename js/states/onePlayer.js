@@ -20,18 +20,27 @@ KLS.onePlayer = {
     //cursor keys to move the player
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
-    this.esc = this.game.input.keyboard.ESC;
+
   },
   preload: function(){
     this.load.image('platform', 'assets/images/platform.png');
     this.load.image('goal', 'assets/images/goal.png');
     this.load.image('slime', 'assets/images/slime.png');
+    this.load.image('ghost', 'assets/images/ghost.png');
     this.load.image('coin', 'assets/images/coin.png');
     this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
     this.load.image("pause","assets/images/pause.png");
     this.load.spritesheet("button","assets/images/button.png",361,176,4,0,23);
+
+    this.load.audio("dieSound","assets/audio/player_dies.wav");
+    this.load.audio("slimeSound","assets/audio/slime_dies.mp3");
+    this.load.audio("coffeeSound","assets/audio/coffee_drinking.wav");
+    this.load.audio("jumpingSound","assets/audio/jumping_sound.wav");
+    this.load.audio("ghostSound","assets/audio/ghost.wav");
+    this.load.audio("flea","assets/audio/flea.mp3");
+    this.load.audio("darude","assets/audio/darude.mp3");
 
 
     this.load.spritesheet("Jorge","assets/images/jorge.png",80,110,24);
@@ -43,9 +52,18 @@ KLS.onePlayer = {
     this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
     this.load.tilemap('level1', 'assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('level2', 'assets/levels/level2.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('level3', 'assets/levels/level3.json', null, Phaser.Tilemap.TILED_JSON);
 
   },
   create: function() {
+
+    if(this.currentLevel=="level1"){
+     this.backmusic= this.game.add.audio("flea");
+     this.backmusic.play();
+   }else{
+     this.backmusic= this.game.add.audio("darude");
+     this.backmusic.play();
+   }
 
     this.scoreText = this.game.add.text(30,10,"Score:")
     this.scoreText.fixedToCamera = true;
@@ -57,7 +75,7 @@ KLS.onePlayer = {
     this.timeLeft = this.game.add.text(120,40,"100");
     this.timeLeft.fixedToCamera = true;
     this.timer = this.game.time.create(false);
-    this.timer.add(200000,this.timer,this);
+    this.timer.add(250000,this.timer,this);
     this.timer.start();
 
 
@@ -105,15 +123,18 @@ KLS.onePlayer = {
   update: function() {
 
     this.scoreNum.text = this.Score.toString();
-    this.timeLeft.text = this.timer.duration.toFixed(0);
+    var number = Math.floor(this.timer.duration/1000);
+    this.timeLeft.text = number.toString();
 
     //collision between the player, enemies and the collision layer
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
     this.game.physics.arcade.collide(this.coins, this.collisionLayer);
+    this.game.physics.arcade.collide(this.ghosts, this.collisionLayer);
 
     //collision between player and enemies
     this.game.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+    this.game.physics.arcade.collide(this.player, this.ghosts, this.hitGhost, null, this);
 
     this.game.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
 
@@ -139,6 +160,8 @@ KLS.onePlayer = {
     }
 
     if((this.cursors.up.isDown || this.player.customParams.mustJump) && (this.player.body.blocked.down || this.player.body.touching.down)) {
+      this.jumpingSound = this.game.add.audio("jumpingSound");
+      this.jumpingSound.play();
       this.player.body.velocity.y = -this.JUMPING_SPEED;
       this.player.customParams.mustJump = false;
       this.player.frame = 1;
@@ -201,8 +224,10 @@ KLS.onePlayer = {
     //create enemies
     this.enemies = this.add.group();
     this.coins = this.add.group();
+    this.ghosts = this.add.group();
     this.createEnemies();
     this.createCoins();
+    this.createGhosts();
     this.coins.forEach(function(coin){
       coin.body.allowGravity = false;
     },this)
@@ -311,6 +336,15 @@ KLS.onePlayer = {
       enemy = new KLS.Enemy(this.game, element.x, element.y, 'slime', +element.properties.velocity, this.map);
       this.enemies.add(enemy);
     }, this);
+
+  },
+  createGhosts: function(){
+    var enemyArr2 = this.findObjectsByType('ghost', this.map, 'objectsLayer');
+    var enemy;
+    enemyArr2.forEach(function(element){
+      enemy = new KLS.Enemy(this.game, element.x, element.y, 'ghost', +element.properties.velocity, this.map);
+      this.ghosts.add(enemy);
+    }, this);
   },
   createCoins: function(){
 
@@ -325,15 +359,51 @@ KLS.onePlayer = {
   hitEnemy: function(player, enemy){
     if(enemy.body.touching.up){
       this.Score+=10;
+      this.slimeDies = this.game.add.audio("slimeSound");
+      this.slimeDies.play();
       enemy.kill();
       player.body.velocity.y = -this.BOUNCING_SPEED;
     }
     else {
+      this.playerDies = this.game.add.audio("dieSound");
+      this.playerDies.play();
       this.gameOver();
     }
   },
+  hitGhost: function(player, enemy){
+    if(enemy.scale.x<0){
+      if(enemy.body.touching.left){
+        this.Score+=20;
+        this.ghost = this.game.add.audio("ghostSound");
+        this.ghost.play();
+        enemy.kill();
+        player.body.velocity.y = -this.BOUNCING_SPEED;
+      }
+      else {
+        this.playerDies = this.game.add.audio("dieSound");
+        this.playerDies.play();
+        this.gameOver();
+      }
+    } else
+    {
+    if(enemy.body.touching.right){
+      this.Score+=20;
+      this.ghost = this.game.add.audio("ghostSound");
+      this.ghost.play();
+      enemy.kill();
+      player.body.velocity.y = -this.BOUNCING_SPEED;
+    }
+    else {
+      this.playerDies = this.game.add.audio("dieSound");
+      this.playerDies.play();
+      this.gameOver();
+    }
+  }
+  },
   collectCoin: function(player, coin){
     this.Score +=5;
+    this.coffeeSound = this.game.add.audio("coffeeSound");
+    this.coffeeSound.play();
     coin.kill();
   },
   gameOver: function(){

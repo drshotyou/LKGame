@@ -10,10 +10,13 @@ KLS.MainMenu = {
         this.load.image("background","assets/images/background.png");
         this.load.spritesheet("button","assets/images/button.png",361,176,4,0,23);
         this.load.spritesheet("score","assets/images/score.png",176,176,4,0,16);
+        this.load.audio("menu","assets/audio/menu.mp3");
 
 
     },
     create: function(){
+        this.backmusic = this.game.add.audio("menu");
+
         this.background = this.add.image(0,0,"background");
         this.background.width = this.game.width;
         this.background.height = this.game.height;

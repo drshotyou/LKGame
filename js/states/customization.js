@@ -14,11 +14,14 @@ KLS.customization = {
         this.load.spritesheet("sprite2","assets/images/alden.png",80,110,24);
         this.load.spritesheet("sprite3","assets/images/sergio.png",80,110,24);
         this.load.spritesheet("select","assets/images/select.png",176,176,4,0,16);
+          this.load.audio("menu","assets/audio/menu.mp3");
 
 
 
     },
     create: function(){
+        this.backmusic = this.game.add.audio("menu");
+
         this.background = this.add.image(0,0,"background");
         this.background.width = this.game.width;
         this.background.height = this.game.height;
