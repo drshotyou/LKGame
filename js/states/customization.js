@@ -21,13 +21,15 @@ KLS.customization = {
     },
     create: function(){
         this.backmusic = this.game.add.audio("menu");
+        this.backmusic.play();
+
 
         this.background = this.add.image(0,0,"background");
         this.background.width = this.game.width;
         this.background.height = this.game.height;
 
         this.selectButton = this.game.add.button(315,315,"select",function(){
-
+            this.backmusic.stop();
             this.game.state.start('onePlayer', true, false, "level1",this.playerName.text);
 
         },this,1,4,2,1);

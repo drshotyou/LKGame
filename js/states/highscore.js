@@ -6,7 +6,7 @@ KLS.highscore = {
         this.game.scale.setScreenSize( true );
         this.highscore = localStorage.getItem("Highscore");
         if(this.highscore===null){
-          localStorage.setItem("Highscore","300")
+          localStorage.setItem("Highscore","0")
         }
 
     },
@@ -19,6 +19,7 @@ KLS.highscore = {
     },
     create: function(){
         this.backmusic = this.game.add.audio("menu");
+        this.backmusic.play();
 
         this.background = this.add.image(0,0,"background");
         this.background.width = this.game.width;
@@ -29,7 +30,7 @@ KLS.highscore = {
         this.title = this.game.add.text(135,25,"Highscore is:", {fontSize:"50px"});
         this.title = this.game.add.text(135,90,this.highscore, {fontSize:"50px"});
 
-        this.startButton = this.game.add.button(210,200,"button",function(){this.state.start("MainMenu");},this,1,4,2,1);
+        this.startButton = this.game.add.button(210,200,"button",function(){this.backmusic.stop();this.state.start("MainMenu");},this,1,4,2,1);
         this.startButton.anchor.setTo(0.5);
         this.startButton.scale.setTo(0.5,0.5);
         this.startText = this.game.add.text(this.startButton.x-65,this.startButton.y-25,"BACK",{fontSize:"40px"});

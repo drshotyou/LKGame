@@ -302,6 +302,8 @@ KLS.onePlayer = {
   },
   changeLevel: function(player, goal){
 
+    this.backmusic.stop();
+
     this.Score+=Math.floor(this.timer.duration/1000);
     if(goal.nextLevel=="finish"){
       this.winText = this.game.add.text(this.scoreText.x+280,this.scoreText.y+120,"YOU COMPLETED THE COURSE!");
@@ -407,12 +409,10 @@ KLS.onePlayer = {
     coin.kill();
   },
   gameOver: function(){
-
+    this.backmusic.stop();
     this.game.state.start('onePlayer', true, false, this.currentLevel,this.playerName);
 
-  }//,
-//  render: function(){
-  //  this.game.debug.body(this.player);
-//  }
-
-};
+  },
+ render: function(){
+ }
+ }

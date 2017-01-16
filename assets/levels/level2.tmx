@@ -191,19 +191,19 @@
     <property name="velocity" value="80"/>
    </properties>
   </object>
-  <object id="44" gid="146" x="4730" y="614" width="35" height="35">
+  <object id="44" gid="146" x="4743" y="610" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
    </properties>
   </object>
-  <object id="45" gid="146" x="4783" y="613" width="35" height="35">
+  <object id="45" gid="146" x="4794" y="611" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
    </properties>
   </object>
-  <object id="46" gid="146" x="4836" y="613" width="35" height="35">
+  <object id="46" gid="146" x="4849" y="612" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
@@ -254,7 +254,7 @@
   <object id="59" gid="146" x="4499" y="890" width="36" height="35">
    <properties>
     <property name="type" value="ghost"/>
-    <property name="velocity" value="100"/>
+    <property name="velocity" value="60"/>
    </properties>
   </object>
   <object id="60" gid="146" x="4261" y="893" width="36" height="35">
@@ -263,10 +263,10 @@
     <property name="velocity" value="100"/>
    </properties>
   </object>
-  <object id="61" gid="146" x="4047" y="893" width="36" height="35">
+  <object id="61" gid="146" x="4048" y="893" width="36" height="35">
    <properties>
     <property name="type" value="ghost"/>
-    <property name="velocity" value="100"/>
+    <property name="velocity" value="60"/>
    </properties>
   </object>
   <object id="62" gid="146" x="3229" y="1268" width="36" height="35">

@@ -20578,7 +20578,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="38"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -25804,19 +25804,19 @@
     <property name="velocity" value="0"/>
    </properties>
   </object>
-  <object id="72" gid="146" x="5644.82" y="548.515" width="35" height="35">
+  <object id="72" gid="146" x="5658.82" y="548.515" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
    </properties>
   </object>
-  <object id="73" gid="146" x="5700.82" y="550.515" width="35" height="35">
+  <object id="73" gid="146" x="5717.82" y="549.515" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
    </properties>
   </object>
-  <object id="74" gid="146" x="5760.82" y="548.515" width="35" height="35">
+  <object id="74" gid="146" x="5778.82" y="549.515" width="35" height="35">
    <properties>
     <property name="type" value="coin"/>
     <property name="velocity" value="0"/>
